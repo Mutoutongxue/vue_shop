@@ -5,7 +5,7 @@
       <div class="avatar_box">
         <img src="../assets/tou.jpg" alt />
       </div>
-      <!-- 表单区 -->
+      <!-- 表单区 ref代表整个表单的实例对象（类似于js的Document 对象，每个载入浏览器的HTML 文档都会成为 Document 对象） -->
       <el-form ref="loginformRef" v-bind:model="loginform" status-icon v-bind:rules="rules" label-width="0px" class="login_form">
         <!-- 用户名 -->
         <el-form-item prop="username">
@@ -42,7 +42,7 @@ export default {
        rules: {
           username: [
             { required: true, message: '请输入用户名', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 9 个字符', trigger: 'blur' }
+            { min: 3, max: 9, message: '长度在 3 到 9 个字符', trigger: 'blur' }
           ],
 
           password: [
@@ -58,30 +58,32 @@ export default {
     //登录按钮
     Loginform() {
         this.$refs.loginformRef.validate(async (valid) => {
-          if (!valid) return;
+          if (!valid) return;  //验证失败，
           //1.const result= await this.$http.post('login',this.loginform);  //像接口发送登录请求
           //console.log(result.data);  //返回Promise对象时候，用同步await，和异步async，修饰
           //2.解构赋值方法
+          // else{
            const {data:res}= await this.$http.post('login',this.loginform);  //向接口发送登录请求
-           if(res.meta.status !=200){//判断状态码
+           if(res.meta.status !=200)//{         //判断状态码
              //return alert("登录失败")
-             this.$message.error("登录失败");
-           }
-           else{
+            return this.$message.error("登录失败");
+          //  }
+          //  else{
              this.$message.success("登录成功");
-           }
-          //1、登录成功之后，服务器会放token令牌，将token保存到客户端的sessionStorage中
+          //1、登录成功之后，服务器会返回给个token令牌，将token保存到客户端的sessionStorage中
           //  1.1、项目中除了登录之外的其他API接口，必须在登录之后才能访问
           //  1.2、token只应在当前网站打开期间生效，所以将token保存在sessionStorage中
-          window.sessionStorage.setItem("token",res.data.token);
+            window.sessionStorage.setItem("token",res.data.token);
           //2、通过编程式导航跳转到后台主页，路由地址是/home
-          this.$router.push('/home');
+            this.$router.push('/home');
+            // }
+          // }
         });
       },
 
     //重置按钮，重置表单
     resetloginform (){ 
-       // console.log(this);
+       // console.log(this); //Vue组件的实例
        this.$refs.loginformRef.resetFields();  //element ui文档里的重置表单里数据方法resetField()
        
     }
