@@ -24,7 +24,11 @@ import {
   Tooltip,
   Pagination,
   Dialog,
-  MessageBox  //引入elmement ui的MessageBox弹框，
+  MessageBox,  //引入elmement ui的MessageBox弹框，
+  Tag,
+  Tree,
+  Select,
+  Option
 } from 'element-ui';           //按需求导入elemnet ui，需要的组件模块
 
 Vue.use(Button)
@@ -51,3 +55,7 @@ Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.prototype.$confirm=MessageBox.confirm
+Vue.use(Tag)
+Vue.use(Tree)
+Vue.use(Select)
+Vue.use(Option)

@@ -14,7 +14,7 @@
       <el-aside v-bind:width="isCollapse ? '64px' : '200px' ">
         <!-- 菜单栏折叠和展开按钮 "|||" -->
         <div class="toggle-button" v-on:click="toggle_button">|||</div>
-        <!-- 侧边导航菜单栏 -->
+        <!-- 侧边导航菜单栏 使用element ui,navMenu导航栏的router属性开启左边菜单栏的路由导航功能：启用该模式会在激活导航时以 index 作为 path 进行路由跳转-->
         <el-menu background-color="#333744" text-color="#fff" active-text-color="#409EFF" unique-opened v-bind:collapse="isCollapse" 
         v-bind:collapse-transition="false" router>
           
@@ -44,7 +44,7 @@
       </el-aside>
       <!-- 右侧内容区域 -->
       <el-main>
-        <!-- Welcome路由的占位符 -->
+        <!-- 左侧菜单导航栏，各项路由的占位符 -->
         <router-view></router-view>
       </el-main>
     </el-container>
