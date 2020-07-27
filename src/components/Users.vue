@@ -48,15 +48,15 @@
               type="primary"
               icon="el-icon-edit"
               size="mini"
-              @click="showEditDialog(scope.row.id)"
-            ></el-button>
+              @click="showEditDialog(scope.row.id)">
+            </el-button>
             <!-- 删除按钮 -->
             <el-button
               type="danger"
               icon="el-icon-delete"
               size="mini"
-              @click="removeUserById(scope.row.id)"
-            ></el-button>
+              @click="removeUserById(scope.row.id)">
+            </el-button>
             <!-- 分配角色按钮 -->
             <el-tooltip
               class="item"
@@ -198,7 +198,7 @@ export default {
         pagesize: 5 //当前每页显示多少条数据
       },
       userlist: [], //用来给模板绑定表格数据的后台用户数组
-      totle: 0,
+      totle: 0, //后台获取的总数据条数
       //1.控制添加用户的对话框显示与隐藏
       addDialogVisible: false,
       //添加用户的表单数据
@@ -367,7 +367,7 @@ export default {
     },
     //删除按钮，根据id删除信息
     async removeUserById(id) {
-      //弹框询问用户是否删除数据
+      //elm ui的MessageBox组件弹框询问用户是否删除数据
       const confirmResult = await this.$confirm(
         '此操作将永久删除该用户, 是否继续?',
         '提示',
@@ -377,6 +377,7 @@ export default {
           type: 'warning'
         }
       ).catch(err => err)
+      //console.log(confirmResult)
       // 如果用户点击确定删除， 返回值为字符串：confirm
       // 如果用户点击取消， 返回值为字符串： cancel
       if (confirmResult !== 'confirm') {

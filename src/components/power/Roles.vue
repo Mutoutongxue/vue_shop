@@ -2,7 +2,7 @@
   <div id="roles">
     <!-- 面包屑导航区域 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>权限管理</el-breadcrumb-item>
       <el-breadcrumb-item>角色列表</el-breadcrumb-item>
     </el-breadcrumb>
@@ -328,7 +328,7 @@ export default {
 
     //删除角色按钮，根据点击按钮获取的id删除
     async removeRoleById (id){
-      //弹框询问用户是否删除数据
+      //elm ui的MessageBox组件弹框询问用户是否删除数据
        const confirmResult = await this.$confirm(
         '此操作将永久删除该角色, 是否继续?',
         '提示',
@@ -338,6 +338,7 @@ export default {
           type: 'warning'
         }
       ).catch(err => err)
+      //console.log(confirmResult)
       // 如果用户点击确定删除， 返回值为字符串：confirm
       // 如果用户点击取消， 返回值为字符串： cancel
       if (confirmResult !== 'confirm') {
@@ -345,7 +346,7 @@ export default {
       }
       const { data: res } = await this.$http.delete('roles/' + id)
       if (res.meta.status !== 200) return this.$message.error('删除角色失败！')
-      this.$message.success('删除用户成功！')
+      this.$message.success('删除角色成功！')
       this.getRolesList()
     }
 
